@@ -1,0 +1,51 @@
+隐藏层数：1 隐藏层纬纬度：128
+Epoch [1/10], Loss: 2.4115
+Epoch [2/10], Loss: 2.2010
+Epoch [3/10], Loss: 1.8917
+Epoch [4/10], Loss: 1.5177
+Epoch [5/10], Loss: 1.1961
+Epoch [6/10], Loss: 0.9701
+Epoch [7/10], Loss: 0.8217
+Epoch [8/10], Loss: 0.7161
+Epoch [9/10], Loss: 0.6415
+Epoch [10/10], Loss: 0.5848
+
+隐藏层数：1 隐藏层纬纬度：64
+Epoch [1/10], Loss: 2.4168
+Epoch [2/10], Loss: 2.1863
+Epoch [3/10], Loss: 1.8614
+Epoch [4/10], Loss: 1.4907
+Epoch [5/10], Loss: 1.1770
+Epoch [6/10], Loss: 0.9572
+Epoch [7/10], Loss: 0.8105
+Epoch [8/10], Loss: 0.7112
+Epoch [9/10], Loss: 0.6380
+Epoch [10/10], Loss: 0.5852
+
+隐藏层数：1 隐藏层纬纬度：256
+Epoch [1/10], Loss: 2.4073
+Epoch [2/10], Loss: 2.1996
+Epoch [3/10], Loss: 1.8823
+Epoch [4/10], Loss: 1.5109
+Epoch [5/10], Loss: 1.1890
+Epoch [6/10], Loss: 0.9633
+Epoch [7/10], Loss: 0.8131
+Epoch [8/10], Loss: 0.7106
+Epoch [9/10], Loss: 0.6362
+Epoch [10/10], Loss: 0.5814
+
+隐藏层数：2 隐藏层纬度：128
+Epoch [1/10], Loss: 2.4478
+Epoch [2/10], Loss: 2.3839
+Epoch [3/10], Loss: 2.3187
+Epoch [4/10], Loss: 2.1986
+Epoch [5/10], Loss: 1.9233
+Epoch [6/10], Loss: 1.5506
+Epoch [7/10], Loss: 1.2187
+Epoch [8/10], Loss: 0.9473
+Epoch [9/10], Loss: 0.7540
+Epoch [10/10], Loss: 0.6298
+
+
+
+
