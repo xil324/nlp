@@ -1,3 +1,7 @@
+import os
+# 先切换到脚本所在目录，避免在受限目录下运行时 openai/httpx/rich 调用 getcwd() 触发 PermissionError
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 import pandas as pd
 import jieba
 from sklearn.feature_extraction.text import CountVectorizer
@@ -23,7 +27,7 @@ def transform_using_knn(text:str)->str:
 
 def transform_using_llm(text:str)->str:
     client = OpenAI(
-        api_key = "gemini_api_key",
+        api_key = "AIzaSyDsiAi1cqijfk4AtVWunZkN-OVq6vPrH9o",
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
     )
 
@@ -37,7 +41,7 @@ def transform_using_llm(text:str)->str:
                 {data}
                 现在请{text}进行分类， 输出的类别只能是{data[1].values}, 请给出
                 最合适和类别
-            
+
 """
             }
         ]
