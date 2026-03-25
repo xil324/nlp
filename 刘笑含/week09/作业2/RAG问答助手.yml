@@ -1,0 +1,526 @@
+app:
+  description: ""
+  icon: 🤖
+  icon_background: "#FFEAD5"
+  icon_type: emoji
+  mode: advanced-chat
+  name: RAG问答助手
+  use_icon_as_answer_icon: false
+dependencies:
+  - current_identifier: null
+    type: marketplace
+    value:
+      marketplace_plugin_unique_identifier: langgenius/anthropic:0.3.6@980c45ee0dfe26b53fb9e3bc451c2f06fcb36dbadfe773c94b7f223f1602c9b8
+      version: null
+  - current_identifier: null
+    type: marketplace
+    value:
+      marketplace_plugin_unique_identifier: langgenius/gemini:0.7.18@acb5e6b40d0776c3b35d03c2deb08ff7eb565dbe5bc30fb38f053b6f737d8820
+      version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+        - .JPG
+        - .JPEG
+        - .PNG
+        - .GIF
+        - .WEBP
+        - .SVG
+      allowed_file_types:
+        - image
+      allowed_file_upload_methods:
+        - local_file
+        - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+          - local_file
+          - remote_url
+      number_limits: 3
+    opening_statement: ""
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ""
+      voice: ""
+  graph:
+    edges:
+      - data:
+          isInLoop: false
+          sourceType: start
+          targetType: question-classifier
+        id: 1774195909529-source-1774195920829-target
+        source: "1774195909529"
+        sourceHandle: source
+        target: "1774195920829"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: llm
+        id: 1774195920829-1-1774196088188-target
+        source: "1774195920829"
+        sourceHandle: "1"
+        target: "1774196088188"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: knowledge-retrieval
+        id: 1774195920829-2-1774196278195-target
+        source: "1774195920829"
+        sourceHandle: "2"
+        target: "1774196278195"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: question-classifier
+          targetType: knowledge-retrieval
+        id: 1774195920829-1774195951834-1774196299958-target
+        source: "1774195920829"
+        sourceHandle: "1774195951834"
+        target: "1774196299958"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: knowledge-retrieval
+          targetType: llm
+        id: 1774196278195-source-1774196311492-target
+        source: "1774196278195"
+        sourceHandle: source
+        target: "1774196311492"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: knowledge-retrieval
+          targetType: llm
+        id: 1774196299958-source-1774196571848-target
+        source: "1774196299958"
+        sourceHandle: source
+        target: "1774196571848"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: template-transform
+        id: 1774196571848-source-1774196613384-target
+        source: "1774196571848"
+        sourceHandle: source
+        target: "1774196613384"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1774196088188-source-1774196704375-target
+        source: "1774196088188"
+        sourceHandle: source
+        target: "1774196704375"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: template-transform
+          targetType: answer
+        id: 1774196613384-source-1774197163329-target
+        source: "1774196613384"
+        sourceHandle: source
+        target: "1774197163329"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+      - data:
+          isInIteration: false
+          isInLoop: false
+          sourceType: llm
+          targetType: answer
+        id: 1774196311492-source-1774197185067-target
+        source: "1774196311492"
+        sourceHandle: source
+        target: "1774197185067"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+    nodes:
+      - data:
+          selected: false
+          title: 用户输入
+          type: start
+          variables: []
+        height: 73
+        id: "1774195909529"
+        position:
+          x: 80
+          y: 282
+        positionAbsolute:
+          x: 80
+          y: 282
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          classes:
+            - id: "1"
+              name: 非大模型和非机器学习问题
+            - id: "2"
+              name: 大模型问题
+            - id: "1774195951834"
+              name: 机器学习问题
+          instruction: 你是一个有着丰富经验的程序员，请把用户的问题分类为“大模型问题”， “机器学习问题”，“其他”
+          instructions: ""
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: claude-haiku-4-5-20251001
+            provider: langgenius/anthropic/anthropic
+          query_variable_selector:
+            - "1774195909529"
+            - sys.query
+          selected: false
+          title: 问题分类器
+          type: question-classifier
+          vision:
+            enabled: false
+        height: 208
+        id: "1774195920829"
+        position:
+          x: 414.56803781958536
+          y: 327.5803170375889
+        positionAbsolute:
+          x: 414.56803781958536
+          y: 327.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          context:
+            enabled: true
+            variable_selector:
+              - sys
+              - query
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: claude-3-5-haiku-20241022
+            provider: langgenius/anthropic/anthropic
+          prompt_template:
+            - id: ad5956c6-212d-4dad-8f06-f391c850ac43
+              role: system
+              text: 请回答用户的问题{{#sys.query#}}
+          selected: false
+          title: LLM
+          type: llm
+          vision:
+            enabled: false
+        height: 88
+        id: "1774196088188"
+        position:
+          x: 716.5680378195854
+          y: 327.5803170375889
+        positionAbsolute:
+          x: 716.5680378195854
+          y: 327.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          dataset_ids:
+            - +gp1J2is5pvO4JIaj2Z0jyoszkUaKAqTNeHsXSp/QCQyonKQc8mvvMXo+zuWUp9j
+          multiple_retrieval_config:
+            reranking_enable: false
+            reranking_mode: weighted_score
+            top_k: 4
+            weights:
+              keyword_setting:
+                keyword_weight: 0.3
+              vector_setting:
+                embedding_model_name: gemini-embedding-001
+                embedding_provider_name: langgenius/gemini/google
+                vector_weight: 0.7
+              weight_type: customized
+          query_attachment_selector: []
+          query_variable_selector:
+            - "1774195909529"
+            - sys.query
+          retrieval_mode: multiple
+          selected: false
+          title: 知识检索
+          type: knowledge-retrieval
+        height: 90
+        id: "1774196278195"
+        position:
+          x: 716.5680378195854
+          y: 454.5803170375889
+        positionAbsolute:
+          x: 716.5680378195854
+          y: 454.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          dataset_ids:
+            - +dFaWs2MB42PBoj7Pof78L0f1G0KcCWBt6uOK3mUl20Hzw4Fc4jcNVQcCygo6Gi1
+          multiple_retrieval_config:
+            reranking_enable: false
+            reranking_mode: weighted_score
+            top_k: 4
+            weights:
+              keyword_setting:
+                keyword_weight: 1
+              vector_setting:
+                embedding_model_name: gemini-embedding-001
+                embedding_provider_name: langgenius/gemini/google
+                vector_weight: 0
+              weight_type: customized
+          query_attachment_selector: []
+          query_variable_selector:
+            - "1774195909529"
+            - sys.query
+          retrieval_mode: multiple
+          selected: false
+          title: 知识检索 2
+          type: knowledge-retrieval
+        height: 90
+        id: "1774196299958"
+        position:
+          x: 716.5680378195854
+          y: 583.5803170375889
+        positionAbsolute:
+          x: 716.5680378195854
+          y: 583.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          context:
+            enabled: true
+            variable_selector:
+              - sys
+              - query
+          model:
+            completion_params:
+              temperature: 0.7
+            mode: chat
+            name: claude-3-5-haiku-20241022
+            provider: langgenius/anthropic/anthropic
+          prompt_template:
+            - id: 34649d90-f696-4a24-8ec1-ce8d004d6ded
+              role: system
+              text: 请根据用户的提问{{#sys.query#}}，并结合提供的大模型知识库的搜索，来回答用户的问题
+          selected: false
+          title: LLM 2
+          type: llm
+          vision:
+            enabled: false
+        height: 88
+        id: "1774196311492"
+        position:
+          x: 1018.5680378195854
+          y: 454.5803170375889
+        positionAbsolute:
+          x: 1018.5680378195854
+          y: 454.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          context:
+            enabled: true
+            variable_selector:
+              - sys
+              - query
+          model:
+            completion_params: {}
+            mode: chat
+            name: claude-3-haiku-20240307
+            provider: langgenius/anthropic/anthropic
+          prompt_template:
+            - id: 1addc523-4fdf-463f-9bde-bb3ff295841d
+              role: system
+              text: 请根据用户的提问{{#sys.query#}}，并结合提供的机器学习知识库，来回答用户的问题
+          selected: false
+          title: LLM 3
+          type: llm
+          vision:
+            enabled: false
+        height: 88
+        id: "1774196571848"
+        position:
+          x: 1018.5680378195854
+          y: 583.5803170375889
+        positionAbsolute:
+          x: 1018.5680378195854
+          y: 583.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          selected: false
+          template: "{{ class_name }}
+
+            {{ result }}
+
+            {{ text }}"
+          title: 模板转换 2
+          type: template-transform
+          variables:
+            - value_selector:
+                - "1774196571848"
+                - text
+              value_type: string
+              variable: text
+            - value_selector:
+                - sys
+                - query
+              value_type: string
+              variable: query
+            - value_selector:
+                - "1774196299958"
+                - result
+              value_type: array[object]
+              variable: result
+            - value_selector:
+                - "1774195920829"
+                - class_name
+              value_type: string
+              variable: class_name
+        height: 52
+        id: "1774196613384"
+        position:
+          x: 1320.5680378195852
+          y: 583.5803170375889
+        positionAbsolute:
+          x: 1320.5680378195852
+          y: 583.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: 答案
+          selected: false
+          title: 直接回复
+          type: answer
+          variables: []
+        height: 100
+        id: "1774196704375"
+        position:
+          x: 1018.5680378195854
+          y: 327.5803170375889
+        positionAbsolute:
+          x: 1018.5680378195854
+          y: 327.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: 这是你的回答{{#1774196571848.text#}}
+          selected: false
+          title: 直接回复 2
+          type: answer
+          variables: []
+        height: 103
+        id: "1774197163329"
+        position:
+          x: 1622.5680378195852
+          y: 583.5803170375889
+        positionAbsolute:
+          x: 1622.5680378195852
+          y: 583.5803170375889
+        selected: true
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+      - data:
+          answer: "{{#1774196311492.text#}}"
+          selected: false
+          title: 直接回复 3
+          type: answer
+          variables: []
+        height: 103
+        id: "1774197185067"
+        position:
+          x: 1320.5680378195852
+          y: 454.5803170375889
+        positionAbsolute:
+          x: 1320.5680378195852
+          y: 454.5803170375889
+        selected: false
+        sourcePosition: right
+        targetPosition: left
+        type: custom
+        width: 242
+    viewport:
+      x: -602.7113414694825
+      y: -230.85690594903292
+      zoom: 0.8681687829988273
+  rag_pipeline_variables: []
