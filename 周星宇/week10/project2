@@ -1,0 +1,56 @@
+from openai import OpenAI
+import os
+import base64
+from io import BytesIO
+from pdf2image import convert_from_path
+
+# === Step 1: PDF 转图像 ===
+pdf_path = r"E:\八斗Python\复习\第10周：多模态大模型\应阔浩-2025自如企业级AI架构落地的思考与实践.pdf"
+images = convert_from_path(pdf_path, first_page=1, last_page=1)
+first_page = images[0]
+
+# === Step 2: 图像转 Base64 ===
+buffer = BytesIO()
+first_page.save(buffer, format="PNG")
+img_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+image_url = f"data:image/png;base64,{img_b64}"
+
+# === Step 3: 调用 Qwen-VL ===
+client = OpenAI(
+    api_key=os.getenv("DASHSCOPE_API_KEY"),
+    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+)
+
+completion = client.chat.completions.create(
+    model="qvq-max",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "image_url", "image_url": {"url": image_url}},
+                {"type": "text", "text": "请解析这张PDF第一页的内容，包括文字、公式、表格等。"}
+            ],
+        }
+    ],
+    stream=True
+)
+
+
+reasoning_content = ""
+answer_content = ""
+is_answering = False
+
+print("\n" + "=" * 20 + "思考过程" + "=" * 20 + "\n")
+for chunk in completion:
+    if not chunk.choices:
+        continue
+    delta = chunk.choices[0].delta
+    if hasattr(delta, 'reasoning_content') and delta.reasoning_content:
+        print(delta.reasoning_content, end='', flush=True)
+        reasoning_content += delta.reasoning_content
+    else:
+        if delta.content and not is_answering:
+            print("\n" + "=" * 20 + "完整回复" + "=" * 20 + "\n")
+            is_answering = True
+        print(delta.content, end='', flush=True)
+        answer_content += delta.content
